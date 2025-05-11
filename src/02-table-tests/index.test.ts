@@ -1,7 +1,6 @@
 import { simpleCalculator, Action } from './index';
 
 describe('simpleCalculator', () => {
-  // Table-driven tests for valid operations
   describe('Valid operations', () => {
     const testCases = [
       {
@@ -50,7 +49,6 @@ describe('simpleCalculator', () => {
     );
   });
 
-  // Table-driven tests for invalid inputs
   describe('Invalid inputs', () => {
     const invalidTestCases = [
       {
