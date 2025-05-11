@@ -1,17 +1,93 @@
-// Uncomment the code below and write your tests
-/* import {  simpleCalculator, Action } from './index';
-
-const testCases = [
-    { a: 1, b: 2, action: Action.Add, expected: 3 },
-    { a: 2, b: 2, action: Action.Add, expected: 4 },
-    { a: 3, b: 2, action: Action.Add, expected: 5 },
-    // continue cases for other actions    
-]; */
+import { simpleCalculator, Action } from './index';
 
 describe('simpleCalculator', () => {
-  // This test case is just to run this test suite, remove it when you write your own tests
-  test('should blah-blah', () => {
-    expect(true).toBe(true);
+  // Table-driven tests for valid operations
+  describe('Valid operations', () => {
+    const testCases = [
+      {
+        a: 5,
+        b: 3,
+        action: Action.Add,
+        expected: 8,
+        description: 'should add two numbers',
+      },
+      {
+        a: 10,
+        b: 4,
+        action: Action.Subtract,
+        expected: 6,
+        description: 'should subtract two numbers',
+      },
+      {
+        a: 7,
+        b: 6,
+        action: Action.Multiply,
+        expected: 42,
+        description: 'should multiply two numbers',
+      },
+      {
+        a: 20,
+        b: 5,
+        action: Action.Divide,
+        expected: 4,
+        description: 'should divide two numbers',
+      },
+      {
+        a: 2,
+        b: 3,
+        action: Action.Exponentiate,
+        expected: 8,
+        description: 'should exponentiate two numbers',
+      },
+    ];
+
+    test.each(testCases)(
+      '$description: $a $action $b = $expected',
+      ({ a, b, action, expected }) => {
+        const result = simpleCalculator({ a, b, action });
+        expect(result).toBe(expected);
+      },
+    );
   });
-  // Consider to use Jest table tests API to test all cases above
+
+  // Table-driven tests for invalid inputs
+  describe('Invalid inputs', () => {
+    const invalidTestCases = [
+      {
+        a: '5',
+        b: 3,
+        action: Action.Add,
+        description: 'should return null when first argument is not a number',
+      },
+      {
+        a: 5,
+        b: '3',
+        action: Action.Add,
+        description: 'should return null when second argument is not a number',
+      },
+      {
+        a: 5,
+        b: 3,
+        action: 'invalid',
+        description: 'should return null when action is invalid',
+      },
+      {
+        a: null,
+        b: 3,
+        action: Action.Add,
+        description: 'should return null when first argument is null',
+      },
+      {
+        a: 5,
+        b: undefined,
+        action: Action.Add,
+        description: 'should return null when second argument is undefined',
+      },
+    ];
+
+    test.each(invalidTestCases)('$description', ({ a, b, action }) => {
+      const result = simpleCalculator({ a, b, action });
+      expect(result).toBeNull();
+    });
+  });
 });
